@@ -27,13 +27,13 @@ export class Phonebook extends React.Component {
       }
       return false;
     });
-    return userData.name;
+    return userData;
   };
 
   formSubmitHandler = data => {
     const userInfo = this.checkContactsDublicate(data);
     if (userInfo) {
-      return alert(`${userInfo} is already in contact`);
+      return alert(`${userInfo.name} is already in contact`);
     }
 
     const newContact = { id: nanoid(), ...data };
