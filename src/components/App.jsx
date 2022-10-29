@@ -19,7 +19,19 @@ export class Phonebook extends React.Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
+  checkContactsDublicate = data => {
+    const actualContacts = this.state.contacts;
+    const userExistInfo = actualContacts.find(contact => {
+      return contact.name === data.name;
+    });
+    return userExistInfo;
+  };
+
   formSubmitHandler = data => {
+    if (this.checkContactsDublicate(data)) {
+      return alert('User exist');
+    }
+
     const newContact = { id: nanoid(), ...data };
     this.setState(prev => ({
       contacts: [newContact, ...prev.contacts],
