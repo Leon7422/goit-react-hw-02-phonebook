@@ -19,6 +19,12 @@ export class Phonebook extends React.Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
+  deleteContact = id => {
+    this.setState(prev => ({
+      contacts: prev.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
   checkContactsDublicate = data => {
     const actualContacts = this.state.contacts;
     const userData = actualContacts.find(contact => {
@@ -57,7 +63,10 @@ export class Phonebook extends React.Component {
           inputValue={this.state.filter}
           inputChange={this.filterInputChange}
         />
-        <ContactList actualData={visibleContacts} />
+        <ContactList
+          actualData={visibleContacts}
+          deleteContact={this.deleteContact}
+        />
       </Container>
     );
   }

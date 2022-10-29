@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const Filter = ({ inputValue, inputChange }) => {
   return (
@@ -12,4 +13,9 @@ export const Filter = ({ inputValue, inputChange }) => {
       />
     </>
   );
+};
+
+Filter.propTypes = {
+  inputValue: PropTypes.string,
+  inputChange: PropTypes.func,
 };
