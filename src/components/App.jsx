@@ -21,15 +21,19 @@ export class Phonebook extends React.Component {
 
   checkContactsDublicate = data => {
     const actualContacts = this.state.contacts;
-    const userExistInfo = actualContacts.find(contact => {
-      return contact.name === data.name;
+    const userData = actualContacts.find(contact => {
+      if (contact.name === data.name) {
+        return data.name;
+      }
+      return false;
     });
-    return userExistInfo;
+    return userData.name;
   };
 
   formSubmitHandler = data => {
-    if (this.checkContactsDublicate(data)) {
-      return alert('User exist');
+    const userInfo = this.checkContactsDublicate(data);
+    if (userInfo) {
+      return alert(`${userInfo} is already in contact`);
     }
 
     const newContact = { id: nanoid(), ...data };
