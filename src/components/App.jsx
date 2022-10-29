@@ -6,18 +6,21 @@ export class Phonebook extends React.Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   handleInputChange = e => {
-    this.setState({ name: e.currentTarget.value });
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
   };
 
   addContactToList = () => {
     this.state.contacts.push({
       id: nanoid(),
       name: this.state.name,
+      number: this.state.number,
     });
-    this.setState({ name: '' });
+    this.setState({ name: '', number: '' });
   };
 
   render() {
@@ -34,13 +37,27 @@ export class Phonebook extends React.Component {
           value={this.state.name}
           onChange={this.handleInputChange}
         />
+        <h3>Number</h3>
+        <input
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          value={this.state.number}
+          onChange={this.handleInputChange}
+        />
         <button onClick={this.addContactToList} type="button">
           Add Contact
         </button>
         <h3>Contacts</h3>
         <ul>
           {this.state.contacts.map(contact => {
-            return <li key={contact.id}>{contact.name}</li>;
+            return (
+              <li key={contact.id}>
+                {contact.name}: {contact.number}
+              </li>
+            );
           })}
         </ul>
       </Container>
